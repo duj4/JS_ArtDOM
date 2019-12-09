@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping list</title>
+    <style>
+        #purchases {
+            border: 1px solid white;
+            background-color: #333;
+            color: #ccc;
+            padding: 1em;
+        }
+
+        #purchases li {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>What to buy</h1>
+    <p title="a gentle reminder">Don't forget to buy this stuff.</p>
+    <p>This is just a test</p>
+    <ul id="purchases">
+        <li>A tin of beans</li>
+        <li class="sale">Cheese</li>
+        <li class="sale important"> Milk</li>
+    </ul>
+    <script>
+        // alert(typeof document.getElementById("purchases")); 返回对象
+        // alert(document.getElementsByTagName("li").length); 返回数组
+        // alert(document.getElementsByTagName("*").length); 通配符*可以列出所有元素节点
+        // var items = document.getElementsByTagName("li");
+        // for(var i=0; i < items.length; i++) {
+        //     alert(typeof items[i]);
+        // }
+
+        //id属性值为purchases的元素包含多少列表项
+        // var shopping = document.getElementById("purchases");
+        // var items = shopping.getElementsByTagName("*");
+        // alert(items.length);
+        // for (var i = 0; i < items.length; i++) {
+        //     alert(typeof(items[i]));
+        // }
+
+        // id属性值为purchases的元素包含多少类名中含有sale的元素
+        // alert(document.getElementsByClassName("sale"));
+        // alert(document.getElementsByClassName("important sale").length); 参数中的顺序和实际的类名顺序无关
+        // var shopping = document.getElementById("purchases");
+        // var sales = shopping.getElementsByClassName("sale");
+        // alert(sales.length);
+
+        // 仅alert出有title属性的p元素的title内容
+        // var paras = document.getElementsByTagName("p");
+        // for (var i = 0; i < paras.length; i++) {
+        //     var title_text = paras[i].getAttribute("title");
+        //     // 没有title属性的不予显示
+        //     if (title_text){
+        //         alert(title_text);//getAttribute不属于document对象
+        //     }
+        // }
+
+        // 为purchases元素增加一个title属性
+        // var shopping = document.getElementById("purchases");
+        // alert(shopping.getAttribute("title"));
+        // shopping.setAttribute("title", "a list of goods");
+        // alert(shopping.getAttribute("title"));
+
+        var paras = document.getElementsByTagName("p")
+        for (var i = 0; i < paras.length; i++) {
+            var title_text = paras[i].getAttribute("title")
+            if(title_text) {
+                alert(title_text);
+                paras[i].setAttribute("title", "brand new title text");
+                alert(paras[i].getAttribute("title"));
+            }
+        }
+    </script>
+</body>
+</html>
