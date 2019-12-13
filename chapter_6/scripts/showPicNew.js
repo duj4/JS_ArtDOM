@@ -1,24 +1,10 @@
-function showPicNew(whichpic) {
-    var source = whichpic.getAttribute("href");
-    var placeholder = document.getElementById("placeholder");
-    // 改变节点的属性值
-    placeholder.setAttribute("src", source);
-    var text = whichpic.getAttribute("title");
-    var description = document.getElementById("description");
-    // 改变节点的值
-    // p元素里的文本节点是p元素第一个子节点，因此需要获取p元素第一个子节点的nodeValue，而不是p元素本身的nodeValue
-    // node.childNodes[0]等价于node.firstChild, node.childNodes[node.childNodes.length - 1]等价于node.lastNode
-    // alert(description.firstChild.nodeValue);
-    description.firstChild.nodeValue = text;
-}
-
 function prepareGallery() {
     // 若当前浏览器不支持该方法，则直接退出
     if (! document.getElementsByTagName) {
         return false;
     }
     // 若当前浏览器不支持该方法，则直接退出
-    if (! document.getElementsById) {
+    if (! document.getElementById) {
         return false;
     }
     // 测试调用当前JS的HTML中是否有“imagegallery”这样的id
@@ -27,13 +13,47 @@ function prepareGallery() {
     }
     var gallery = document.getElementById("imagegallery");
     var links = gallery.getElementsByTagName("a");
-
     for (var i=0; i < links.length; i++) {
         links[i].onclick = function() {
-            showPicNew(this);
-            return false;
+            // 由showPic的返回值决定是否跳转页面
+            return !showPic(this);
+        };
+    }
+}
+
+function showPic(whichpic) {
+    if (!document.getElementById("placeholder")) {
+        return false;
+    }
+    // 下面的DOM Core语句可以用HTML-DOM替换成var source = whichpic.href;
+    var source = whichpic.getAttribute("href");
+    var placeholder = document.getElementById("placeholder");
+    // 如果placeholder的nodeName不是图片
+    if (placeholder.nodeName != "IMG") {
+        return false;
+    }
+    // 改变节点的属性值
+    // HTML-DOM写法: placeholder.src = source;
+    placeholder.setAttribute("src", source);
+
+    if (document.getElementById("description")) {
+        if (whichpic.getAttribute("title")) {
+            var text = whichpic.getAttribute("title");
+        }
+        else {
+            var text = "";
+        }
+        var description = document.getElementById("description");
+        // 如果节点类型是文本节点
+        if (description.firstChild.nodeType == 3) {
+            // 改变节点的值
+            // p元素里的文本节点是p元素第一个子节点，因此需要获取p元素第一个子节点的nodeValue，而不是p元素本身的nodeValue
+            // node.childNodes[0]等价于node.firstChild, node.childNodes[node.childNodes.length - 1]等价于node.lastNode
+            // alert(description.firstChild.nodeValue);
+            description.firstChild.nodeValue = text;
         }
     }
+    return true;
 }
 
 function addLoadEvent(func) {
