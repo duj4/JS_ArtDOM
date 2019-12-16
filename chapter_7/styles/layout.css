@@ -23,7 +23,7 @@ ul {
 
 li {
     float: left;
-    padding: 1em;
+    padding: 1em 1em 1em 0em;
     list-style: none;
 }
 img {
