@@ -9,7 +9,8 @@ function stripeTables() {
         rows = tables[i].getElementsByTagName("tr");
         for (var j=0;j<rows.length;j++) {
             if (odd == true) {
-                rows[j].style.backgroundColor = "#ffc";
+                // rows[j].style.backgroundColor = "#ffc";
+                addClass(rows[j], "odd");
                 odd = false;
             } else {
                 odd = true;
@@ -18,6 +19,18 @@ function stripeTables() {
         }
     }
 }
+// 通过DOM函数修改CSS的class
+function addClass(element, value) {
+    if(!element.className) {
+        element.className = value;
+    } else {
+        newClassName = element.className;
+        newClassName += " ";
+        newClassName += value;
+        element.className = newClassName;
+    }
+}
+
 function highlightRows() {
     if(!document.getElementsByTagName) {
         return false;
