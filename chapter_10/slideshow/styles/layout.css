@@ -1,0 +1,10 @@
+#slideshow {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+/* 把position属性为absolute的元素A放入一个position属性是relative的元素B，B就成为A的容器元素，A将在B的显示区域里按absolute进行摆放*/
+#preview {
+    position: absolute;
+}
