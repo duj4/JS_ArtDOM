@@ -49,6 +49,8 @@ function highlightPage() {
     var linkurl;
     for (var i=0; i<links.length; i++) {
         linkurl = links[i].getAttribute("href");
+        // indexOf用于在字符串钟寻找子字符串的位置，若没有找到，则返回-1
+        // 获取当前页面的URL: window.location.href
         if (window.location.href.indexOf(linkurl) !== -1) {
             links[i].className = "here";
             var linktext = links[i].lastChild.nodeValue.toLowerCase();
