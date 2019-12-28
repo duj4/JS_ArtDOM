@@ -350,6 +350,61 @@ function displayAbbreviation() {
     container.appendChild(dlist);
 }
 
+// page "contact.html"
+// 当label的文本被单击时，关联的表单字段会获得焦点（默认已经实现）
+function focusLabels() {
+    if (!document.getElementsByTagName) {
+        return false;
+    }
+    var labels = document.getElementsByTagName("label");
+    for (var i=0; i < labels.length; i++) {
+        if (!labels[i].getAttribute("for")) {
+            continue;
+        }
+        labels[i].onclick = function () {
+            var id = this.getAttribute("for");
+            if (!document.getElementById(id)) {
+                return false;
+            }
+            var element = document.getElementById(id);
+            element.focus();
+        }
+    }
+}
+
+function resetFields(whichform) {
+    for (var i=0; i < whichform.elements.length;i++) {
+        var element = whichform.elements[i];
+
+        if (element.type === "submit" || element.type === 'fieldset') {
+            continue;
+        }
+        var check = element.placeholder || element.getAttribute("placeholder");
+        if (!check) {
+            continue;
+        }
+        element.onfocus = function () {
+            var text = this.placeholder || this.getAttribute("placeholder");
+            if (this.value === text) {
+                this.className = '';
+                this.value = "";
+            }
+        };
+        element.onblur = function () {
+            if (this.value === "") {
+                this.className = "placeholder";
+                this.value = this.placeholder || this.getAttribute("placeholder");
+            }
+        };
+        element.onblur();
+    }
+}
+function prepareForms() {
+    for ( var i=0; i < document.forms.length; i++) {
+        var thisform = document.forms[i];
+        resetFields(thisform);
+    }
+}
 addLoadEvent(highlightPage);
 addLoadEvent(prepareSlideshow);
 addLoadEvent(prepareInternalnav);
@@ -358,3 +413,5 @@ addLoadEvent(prepareGallery);
 addLoadEvent(stripeTables);
 addLoadEvent(highlightRows);
 addLoadEvent(displayAbbreviation);
+addLoadEvent(focusLabels);
+addLoadEvent(prepareForms);
