@@ -399,11 +399,43 @@ function resetFields(whichform) {
         element.onblur();
     }
 }
+// form验证
+function isFilled(field) {
+    return (field.value.length > 1 && field.value !== field.placeholder);
+}
+
+function isEmail(field) {
+    return (field.value.indexOf("@") !== -1 && field.value.indexOf(".") !== -1);
+}
+
+function validateForm(whichform) {
+    for (var i=0; i<whichform.elements.length;i++) {
+        var element = whichform.elements[i];
+        if(element.getAttribute("required") === 'required') {
+            if (!isFilled(element)) {
+                alert("Please fill in the " + element.name + " field.");
+                return false;
+            }
+        }
+        if (element.getAttribute("type") === 'email') {
+            if (!isEmail(element)) {
+                alert("The " + element.name + " field must be a valid email address.");
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
 function prepareForms() {
     for ( var i=0; i < document.forms.length; i++) {
         var thisform = document.forms[i];
         resetFields(thisform);
+        thisform.onsubmit = function () {
+            if (!validateForm(this)) {
+                return false;
+            }
+        }
     }
 }
 
