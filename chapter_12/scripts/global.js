@@ -371,7 +371,7 @@ function focusLabels() {
         }
     }
 }
-
+// 点击表单时，placeholder的内容会消失
 function resetFields(whichform) {
     for (var i=0; i < whichform.elements.length;i++) {
         var element = whichform.elements[i];
@@ -399,12 +399,14 @@ function resetFields(whichform) {
         element.onblur();
     }
 }
+
 function prepareForms() {
     for ( var i=0; i < document.forms.length; i++) {
         var thisform = document.forms[i];
         resetFields(thisform);
     }
 }
+
 addLoadEvent(highlightPage);
 addLoadEvent(prepareSlideshow);
 addLoadEvent(prepareInternalnav);
